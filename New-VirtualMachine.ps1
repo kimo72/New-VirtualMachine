@@ -1,6 +1,6 @@
 ﻿
 
-
+<#
 $myVM = "AD2"
 $myNetwork = "wifi"
 $myVHDpath = 'C:\Virtual Machines\AD2.vhdx'
@@ -14,7 +14,7 @@ $generation
 $staticMemory
 $ProcessorCount
 
-
+#>
 
 
 function New-VirtualMachine{
@@ -39,7 +39,7 @@ $Generation,
 
 $StaticMemory,
 
-[int]$ProcessorCount
+[int]$ProcessorCount = 1
     
 )
 
@@ -47,6 +47,6 @@ $StaticMemory,
 $VHDX = New-VHD -Path $VHDpath -ParentPath $ParentPath -Differencing 
 $VmName = New-VM -Name $VmName -MemoryStartupBytes 1GB -Generation $generation -VHDPath $VHDPath
 $VmName | Get-VMNetworkAdapter | Connect-VMNetworkAdapter -SwitchName $virtualSwitch
-$VmName | Set-VM -ProcessorCount $ProcessorCount -StaticMemory $staticMemory
+$VmName | Set-VM -ProcessorCount $ProcessorCount 
 }
-New-VirtualMachine -VmName 1 -VirtualSwitch wifi -VHDPath "C:\Virtual Machines" -ParentPath C:\Virtual Machines\Bases
+New-VirtualMachine -VmName AD2 -VirtualSwitch wifi -VHDPath "C:\Virtual Machines\AD2.vhdx" -ParentPath "C:\Virtual Machines\Bases\Base Windows Server 2012 R2 Dat x64 GUI - English.vhdx" -Generation 2 
